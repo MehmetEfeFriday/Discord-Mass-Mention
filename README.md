@@ -8,6 +8,7 @@ Vast closed my old github account with fake spam.
 Even though I sent them to github with proofs, I didn't get a positive result and now I continue here.
 I won't continue this project anymore because I don't care.
 Now I'm thinking of finding the key again in Brawl Stars somehow and doing very good things, I won't make the mistake I made in zer0_bot. anyway, let's continue
+[My Discord Server](https://discord.gg/HMESXRwX2Z)
 
 ## Features
 This code allows you to ping and advertise to anyone on a Discord server. It supports multiple tokens for efficient use.
