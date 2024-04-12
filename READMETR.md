@@ -1,4 +1,4 @@
-# Discord Kitlesel Mansiyon
+# Discord Kitlesel Mansiyon (çeviriyi sikim)
 Bu Node.js betiği, kendi botlarınızı kullanarak Discord'da toplu bahsetmeler göndermenizi sağlar. Her mesajda kullanılacak kullanıcı kimliği sayısını özelleştirebilir, hedeflenecek lonca kimliğini ve kanal kimliklerini belirleyebilir, her mesaj arasındaki aralığı ayarlayabilir ve farklı hesaplar aracılığıyla mesaj göndermek için birden fazla belirteç sağlayabilirsiniz.
 
 ## bir yıldız ekle çünkü neden olmasın
@@ -17,8 +17,8 @@ Bu kod, bir Discord sunucusundaki herkese ping atmanıza ve reklam vermenize ola
 - Node.js
 - Discord bot token(lar)ı
 - Bahsedilecek üye kimliklerinin listesi scrape.js ile listeyi alabilirsiniz unutmayın asla %100 alamazsınız çok uzun süreler lazım ilgili dokümantasyon:
--https://github.com/aiko-chan-ai/discord.js-selfbot-v13/blob/2.15.1/Document/FetchGuildMember.md
--https://arandomnewaccount.gitlab.io/discord-unofficial-docs/lazy_guilds.html
+- https://github.com/aiko-chan-ai/discord.js-selfbot-v13/blob/2.15.1/Document/FetchGuildMember.md
+- https://arandomnewaccount.gitlab.io/discord-unofficial-docs/lazy_guilds.html
 
 ## Konfigürasyon
 - `amount`: Her mesajda kullanılacak kullanıcı kimliği sayısı.
