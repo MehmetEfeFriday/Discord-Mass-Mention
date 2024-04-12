@@ -8,7 +8,7 @@ Vast sahte spamlarla eski github hesabımı kapatmıştı.
 Kanıtlarıyla githuba bunları göndersemde olumlu bir sonuç alamamıştım artık burdan devam ediyorum.
 Bu projeye daha fazla devam etmeyeceğim çünkü umrumda değil.
 Şuan Brawl Stars da tekrardan keyi birşekilde kendim bulup çok iyi şeyler yapmayı düşünüyorum zer0_bot da yaptığım hatayı yapmayacağım. herneyse devam edelim
-
+[Discord Sunucum](https://discord.gg/HMESXRwX2Z)
 ## Özellikler
 Bu kod, bir Discord sunucusundaki herkese ping atmanıza ve reklam vermenize olanak tanır. Verimli kullanım için birden fazla jetonu destekler.
 
