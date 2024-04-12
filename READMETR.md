@@ -21,7 +21,7 @@ Bu kod, bir Discord sunucusundaki herkese ping atmanıza ve reklam vermenize ola
 -https://arandomnewaccount.gitlab.io/discord-unofficial-docs/lazy_guilds.html
 
 ## Konfigürasyon
-- `miktar`: Her mesajda kullanılacak kullanıcı kimliği sayısı.
+- `amount`: Her mesajda kullanılacak kullanıcı kimliği sayısı.
 - `guildid`: Eylemleri gerçekleştirmek istediğiniz Discord sunucusunun kimliği.
 - `channelids`: Mesaj göndermek istediğiniz kanalların kimlikleri. Kanal kimliklerini ekleyerek veya kaldırarak bunu özelleştirebilirsiniz.
 - `interval`: Her mesaj arasındaki zaman aşımı.
