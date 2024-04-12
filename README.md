@@ -17,8 +17,8 @@ This code allows you to ping and advertise to anyone on a Discord server. It sup
 - Node.js
 - Discord bot token(s)
 - The list of member IDs to be mentioned, you can get the list with scrape.js, remember that you can never get 100%, you need very long periods of time related documentation:
--https://github.com/aiko-chan-ai/discord.js-selfbot-v13/blob/2.15.1/Document/FetchGuildMember.md
--https://arandomnewaccount.gitlab.io/discord-unofficial-docs/lazy_guilds.html
+- https://github.com/aiko-chan-ai/discord.js-selfbot-v13/blob/2.15.1/Document/FetchGuildMember.md
+- https://arandomnewaccount.gitlab.io/discord-unofficial-docs/lazy_guilds.html
 
 ## Configuration
 - `amount`: The number of user IDs to be used in each message.
