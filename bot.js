@@ -2,18 +2,13 @@ const Discord = require("discord.js-selfbot-v13");
 const fs = require("fs");
 
 const clients = [];
-const amount = 5; // Number of user IDs to use in each message
-const guildid = "1070582618116079647"; // add your guild id only can be 1 if you make more than 1 account will get banned.
-const channelids = ["1070582618640355360", "1070582683371061258"]; // add your channel ids maximum 3 channel id recommended minumum 2 but Customisable, you can put more than 3 or less than 2, but the most effective is to put 3 channel ids
-const interval = 666; // Timeout between each message.
+const amount = 3; // mesaj başına kaç kişi etiketleyecek
+const guildid = "1070582618116079647";
+const channelids = ["1070582618640355360", "1070582683371061258"];
+const interval = 2; //kaç milisaniyede
 let messages = fs.readFileSync("./messages.txt", "utf-8").split("\n");
 let usedMessages = [];
-let messageIndex = 0;
-const tokens = fs
-  .readFileSync("./tokens.txt", "utf-8") // add your tokens (can be multi token xd)
-  .split("\n")
-  .map((token) => token.trim())
-  .filter((token) => token.length > 0);
+let tokens = fs.readFileSync("./tokens.txt", "utf-8").split("\n");
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -22,8 +17,21 @@ function shuffleArray(array) {
   }
 }
 
-let userIdsToUse = [];
-let messagesToUse = [];
+let currentMessageIndex = 0;
+
+// Read in the IDs to mention from "ids.txt"
+let userIDs = fs.readFileSync("./ids.txt", "utf-8").split("\n");
+// Remove empty lines
+userIDs = userIDs.filter((id) => id.length > 0);
+// Shuffle the user IDs to distribute them among the bot accounts
+shuffleArray(userIDs);
+
+// Distribute the user IDs among the bot accounts
+let userIDChunks = [];
+let chunkSize = Math.ceil(userIDs.length / tokens.length);
+for (let i = 0; i < userIDs.length; i += chunkSize) {
+  userIDChunks.push(userIDs.slice(i, i + chunkSize));
+}
 
 tokens.forEach((token, tokenIndex) => {
   const client = new Discord.Client();
@@ -32,69 +40,82 @@ tokens.forEach((token, tokenIndex) => {
   client.on("ready", () => {
     console.log(`Bot is ready with token ${token}.`);
 
-    fs.readFile("ids.txt", "utf-8", (err, data) => {
-      if (err) {
-        console.error(err);
+    let ids = userIDChunks[tokenIndex % userIDChunks.length];
+
+    // Divide ids into smaller chunks
+    let chunkedIds = [];
+    while (ids.length > 0) {
+      let chunk = ids.splice(0, amount);
+      chunkedIds.push(chunk);
+    }
+
+    let channelIndex = 0;
+    let idIndex = 0;
+
+    let loop = setInterval(function () {
+      if (channelIndex >= channelids.length) {
+        channelIndex = 0;
+      }
+
+      if (idIndex >= chunkedIds.length) {
+        idIndex = 0;
+      }
+
+      let channelId = channelids[channelIndex];
+      let channel = client.channels.cache.get(channelId);
+
+      if (!channel) {
+        console.warn(`Channel not found with ID ${channelId}!`);
+        channelIndex++;
         return;
       }
 
-      let ids = data.split("\n");
-      ids = ids.filter((id) => id.trim().length > 0);
-      shuffleArray(ids);
+      // Shuffle the messages array if all messages have been used
+      if (usedMessages.length === messages.length) {
+        usedMessages = [];
+        shuffleArray(messages);
+        console.log("All messages used, shuffling messages.");
+      }
 
-      let channelIndex = 0;
+      // Get the next unused message
+      let message = messages.find((message) => !usedMessages.includes(message));
 
-      let loop = setInterval(function () {
-        if (channelIndex >= channelids.length) {
-          channelIndex = 0;
-        }
-
-        let channelId = channelids[channelIndex];
-        let channel = client.channels.cache.get(channelId);
-
-        if (userIdsToUse.length === 0) {
-          userIdsToUse = [...ids];
-          shuffleArray(userIdsToUse);
-        }
-
-        if (messagesToUse.length === 0) {
-          messagesToUse = [...messages];
-          shuffleArray(messagesToUse);
-        }
-
-        if (userIdsToUse.length === 0 && messagesToUse.length === 0) {
-          clearInterval(loop);
-          console.log("All messages and IDs used.");
-          return;
-        }
-
-        let message = messagesToUse.pop();
-        let userIdsInMessage = [];
-        for (let i = 0; i < amount && userIdsToUse.length > 0; i++) {
-          userIdsInMessage.push(`<@${userIdsToUse.pop()}>`);
-        }
+        let chunk = chunkedIds[idIndex];
+        let randomIds = chunk.sort(() => Math.random() - 0.5);
+        let userList = randomIds.map((id) => `<@${id}>`).join(" ");
         let randomString = Math.random().toString(36).substring(2, 60);
-        let fullMessage = randomString + "| " + userIdsInMessage.join(" ") + " " + message;
+        let fullMessage = randomString + "| " + userList + " " + message;
 
         channel.send(fullMessage).catch((err) => {
-          console.warn(`Stopped spamming with token ${token}!`);
-          clearInterval(loop);
+          console.warn(`Error sending message with token ${token}!`);
+          console.warn(err);
+          tokens.splice(tokenIndex, 1);
         });
 
+        // Mark the used message as used
         usedMessages.push(message);
 
         channelIndex++;
+        idIndex++;
 
         if (tokenIndex === tokens.length - 1) {
-          messageIndex++;
-          if (messageIndex >= messages.length) {
-            messageIndex = 0;
-            shuffleArray(messages);
-          }
+          currentMessageIndex++;
+        }
+
+        if (currentMessageIndex >= messages.length) {
+          currentMessageIndex = 0;
         }
       }, interval);
     });
   });
 
+  client.on("error", (err) => {
+    console.warn(`Stopped spamming with token ${token}!`);
+    console.warn(err);
+
+    // Remove the token from the tokens array
+    tokens.splice(tokenIndex, 1);
+  });
+
   clients.push(client);
-});
+
