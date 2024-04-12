@@ -21,7 +21,7 @@ This code allows you to ping and advertise to anyone on a Discord server. It sup
 -https://arandomnewaccount.gitlab.io/discord-unofficial-docs/lazy_guilds.html
 
 ## Configuration
-- `quantity`: The number of user IDs to be used in each message.
+- `amount`: The number of user IDs to be used in each message.
 - `guildid`: ID of the Discord server you want to perform actions on.
 - `channelids`: IDs of the channels you want to send messages to. You can customize this by adding or removing channel IDs.
 - `interval`: The timeout between each message.
