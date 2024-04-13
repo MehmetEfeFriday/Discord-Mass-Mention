@@ -107,15 +107,15 @@ tokens.forEach((token, tokenIndex) => {
         }
       }, interval);
     });
-  });
 
-  client.on("error", (err) => {
-    console.warn(`Stopped spamming with token ${token}!`);
-    console.warn(err);
+    // Move this inside the loop
+    client.on("error", (err) => {
+      console.warn(`Stopped spamming with token ${token}!`);
+      console.warn(err);
 
-    // Remove the token from the tokens array
-    tokens.splice(tokenIndex, 1);
-  });
+      // Remove the token from the tokens array if acc banned 
+      tokens.splice(tokenIndex, 1);
+    });
 
   clients.push(client);
-
+});
