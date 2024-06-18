@@ -2,7 +2,7 @@
 This Node.js script allows you to send mass mentions on Discord using your own bots. You can customize the number of user IDs to use in each message, specify the guild ID and channel IDs to target, set the interval between each message, and provide multiple tokens to send messages through different accounts.
 
 [Video Taken While Using the Sample](https://youtu.be/A2Roa8xsaLA)
-(Real Time Chat Spam Video Very Fast)[https://youtu.be/XZctJrYFT90]
+[Real Time Chat Spam Video Very Fast](https://youtu.be/XZctJrYFT90)
 
 ## Add a star because why not
 because why not xd 
