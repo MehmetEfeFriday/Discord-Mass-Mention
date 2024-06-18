@@ -2,13 +2,15 @@ const Discord = require("discord.js-selfbot-v13");
 const fs = require("fs");
 
 const clients = [];
-const amount = 5; // how many IDs to use in each message
-const guildid = "1070582618116079647";
-const channelids = ["1070582618640355360", "1070582683371061258"];
-const interval = 1000;
+const amount = 5; // Specify how many IDs to use in each message :/ automod can detect and account will be banned or muted
+const guildid = "1204881067861999616";
+const channelids = ["1221906513631903865", "1213923277869678652", "1206174279385747466", "1213918540361367622","1211272712534753352","1223931233768050712"];
+const interval = 100;
 let messages = fs.readFileSync("./messages.txt", "utf-8").split("\n");
 let usedMessages = [];
 let messageIndex = 0;
+let totalUsersPinged = 0;
+let totalMessagesSent = 0;
 const tokens = fs
   .readFileSync("./tokens.txt", "utf-8")
   .split("\n")
@@ -25,7 +27,8 @@ function shuffleArray(array) {
 let userIdsToUse = [];
 let messagesToUse = [];
 
-tokens.forEach((token, tokenIndex) => {
+// Multi-token logic SO FUCKEDD
+tokens.forEach((token) => {
   const client = new Discord.Client();
   client.login(token);
 
@@ -76,7 +79,11 @@ tokens.forEach((token, tokenIndex) => {
         }
         let fullMessage = randomString + "| " + userList + message;
 
-        channel.send(fullMessage).catch((err) => {
+        channel.send(fullMessage).then(() => {
+          totalUsersPinged += amount;
+          totalMessagesSent++;
+          console.log(`Total Users Pinged: ${totalUsersPinged}, Total Messages Sent: ${totalMessagesSent}`);
+        }).catch((err) => {
           console.warn(`Stopped spamming with token ${token}!`);
           clearInterval(loop);
         });
@@ -84,17 +91,13 @@ tokens.forEach((token, tokenIndex) => {
         usedMessages.push(message);
 
         channelIndex++;
-
-        if (tokenIndex === tokens.length - 1) {
-          messageIndex++;
-          if (messageIndex >= messages.length) {
-            messageIndex = 0;
-            shuffleArray(messages);
-          }
-        }
       }, interval);
     });
   });
 
   clients.push(client);
+});
+
+clients.forEach(client => {
+  client.on('ready', () => console.log(`${client.user.username} is connected`));
 });
