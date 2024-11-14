@@ -40,9 +40,3 @@ This code allows you to ping and advertise to anyone on a Discord server. It sup
 
 ## Thank you
 I couldn't have done this project without Discum and discord.js-selfbot-v13, thank you very much.
-
-## Buy Me a Coffee
-If you found this code useful and want to support its development, you can donate via cryptocurrency:
-- BTC: [1GVwrLLEMBmA6wCWnvgDLwqLv8HhryRioDs]
-- USDT: [TE65qTLAx73kQ4LjbQYiWnXWBNK6GwKNXM]
-- TON: [UQDHzwnAoZ3ZY86PX7oF4b37pikY6boM1RO7okLuO3nfwgqt]
